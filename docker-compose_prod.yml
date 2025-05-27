@@ -11,7 +11,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./digest_bot:/telegram_bot
+      - ../digest_bot:/telegram_bot
     environment:
       - LOCAL_ENV=prod
 
