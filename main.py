@@ -8,7 +8,7 @@ from config_data import config
 from handlers import routers
 from loader import bot, dp
 from utils.scheduler import tasks_checker
-from middlewares.logging_middleware import LoggingMiddleware
+# from middlewares.logging_middleware import LoggingMiddleware
 
 
 LOCAL_ENV = config.LOCAL_ENV
@@ -30,8 +30,8 @@ async def set_commands():
 def routers_and_middleware():
     for router in routers:
         dp.include_router(router)
-    dp.message.middleware(LoggingMiddleware())
-    dp.callback_query.middleware(LoggingMiddleware())
+    # dp.message.middleware(LoggingMiddleware())
+    # dp.callback_query.middleware(LoggingMiddleware())
 
 
 async def on_startup() -> None:
