@@ -1,0 +1,30 @@
+services:
+  bot_digest:  # NAME
+    build:
+      context: .
+    container_name: bot_digest # NAME
+    stop_signal: SIGKILL
+    ports:
+      - 5011:5011 # PORTS
+    networks:
+      - webnet
+    depends_on:
+      - postgres
+    volumes:
+      - ./report_bot:/telegram_bot
+    environment:
+      - LOCAL_ENV=prod
+
+  postgres:
+    image: postgres
+    container_name: postgres_digest # NAME
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+networks:
+  webnet:
