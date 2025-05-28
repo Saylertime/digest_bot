@@ -22,13 +22,17 @@ async def db_connection():
 
 async def add_user(telegram_id):
     async with db_connection() as conn:
-        sql = """CREATE TABLE IF NOT EXISTS users (telegram_id VARCHAR);"""
-        await conn.execute(sql, )
+        await conn.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                telegram_id VARCHAR PRIMARY KEY
+            );
+        """)
 
-        sql = (
-            f"INSERT INTO public.users (telegram_id) "
-            f"VALUES ($1)"
-        )
+        sql = """
+            INSERT INTO users (telegram_id)
+            VALUES ($1)
+            ON CONFLICT (telegram_id) DO NOTHING;
+        """
         await conn.execute(sql, telegram_id)
 
 

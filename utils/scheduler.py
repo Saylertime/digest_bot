@@ -12,9 +12,9 @@ def tasks_checker():
 
     scheduler.add_job(
         func=fetch_all,
-        trigger=IntervalTrigger(hours=3),
+        trigger=IntervalTrigger(hours=2),
         id="send_message_job",
-        name="Проверка Django API каждые 2 секунды",
+        name="Отправка новых материалов",
         replace_existing=True,
     )
 
