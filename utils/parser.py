@@ -23,7 +23,7 @@ def load_seen_links(file_name):
 
 def save_seen_links(entries, file_name):
     with open(file_name, "a", encoding="utf-8") as f:
-        for title, link in entries:
+        for title, link, source in entries:
             f.write(f"{title} — {link}\n")
 
 
@@ -44,7 +44,7 @@ async def fetch_sostav():
         full_link = BASE_URL + relative_link
 
         if full_link not in seen_links:
-            new_articles.append((title, full_link))
+            new_articles.append((title, full_link, "Sostav"))
 
     save_seen_links(new_articles, SEEN_FILE_SOSTAV)
     return new_articles
@@ -73,7 +73,7 @@ async def fetch_vc():
             continue
 
         if full_link not in seen_links:
-            new_articles.append((title, full_link))
+            new_articles.append((title, full_link, "VC"))
 
     save_seen_links(new_articles, SEEN_FILE_VC)
     return new_articles
@@ -94,7 +94,7 @@ async def fetch_habr():
         link = entry.link.strip()
 
         if link not in seen_links:
-            new_articles.append((title, link))
+            new_articles.append((title, link, "Habr"))
 
     save_seen_links(new_articles, SEEN_FILE_HABR)
     return new_articles
@@ -112,8 +112,8 @@ async def fetch_all():
     parts = []
     current_part = ""
 
-    for title, link in all_articles:
-        html_line = f'<a href="{link}"><b>{title}</b></a>\n\n'
+    for title, link, source in all_articles:
+        html_line = f'<a href="{link}"><b>{title}</b></a> — {source}\n\n'
         if len(current_part) + len(html_line) <= 4000:
             current_part += html_line
         else:
