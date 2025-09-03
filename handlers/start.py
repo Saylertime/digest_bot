@@ -14,4 +14,4 @@ async def command_start_handler(message):
         telegram_id = str(message.chat.id)
 
     await add_user(telegram_id=telegram_id)
-    await message.answer(f"Йо! Дайджест приходит каждый час")
+    await message.answer(f"Дайджест выходит в понедельник-четверг в 11 часов по Москве")
