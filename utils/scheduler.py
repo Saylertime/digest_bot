@@ -18,7 +18,7 @@ def tasks_checker():
         trigger=CronTrigger(
             hour=11,
             minute=00,
-            day_of_week="0-5",
+            day_of_week="0-4",
             timezone=tz
         ),
         id="send_daily_digest_job",
